@@ -68,7 +68,11 @@ def main():
         for byteLine in process.stdout:
             strLine = str(byteLine)
 
-            jsonLine = json.loads("{" + strLine.split("{")[1].split("}")[0] + "}")
+            firstSplit = strLine.split("{")
+            if len(firstSplit) < 2:
+                continue
+
+            jsonLine = json.loads("{" + firstSplit[1].split("}")[0] + "}")
 
             if jsonLine["Name"] == "--":
                 continue
